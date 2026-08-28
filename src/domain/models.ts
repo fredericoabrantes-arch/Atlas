@@ -1,0 +1,11 @@
+import { z } from 'zod'
+export const CurrencySchema=z.string().length(3).transform(v=>v.toUpperCase()); export type Currency=z.infer<typeof CurrencySchema>
+export const AssetSchema=z.object({id:z.string().min(1),ticker:z.string().min(1),name:z.string().min(1),assetClass:z.enum(['ETF','STOCK','BOND','CASH','CRYPTO','OTHER']),currency:CurrencySchema,region:z.string().optional(),sector:z.string().optional()}); export type Asset=z.infer<typeof AssetSchema>
+export const TransactionTypeSchema=z.enum(['BUY','SELL','DIVIDEND','DEPOSIT','WITHDRAWAL','FEE','TRANSFER']); export type TransactionType=z.infer<typeof TransactionTypeSchema>
+export const TransactionSchema=z.object({id:z.string().min(1),portfolioId:z.string().min(1),assetId:z.string().optional(),type:TransactionTypeSchema,date:z.coerce.date(),quantity:z.number().nonnegative().optional(),unitPrice:z.number().nonnegative().optional(),amount:z.number().optional(),fees:z.number().nonnegative().default(0),currency:CurrencySchema,note:z.string().optional()}).superRefine((v,c)=>{if(['BUY','SELL'].includes(v.type)&&(!v.assetId||!v.quantity||v.unitPrice===undefined))c.addIssue({code:'custom',message:'BUY and SELL require assetId, quantity and unitPrice'})}); export type Transaction=z.infer<typeof TransactionSchema>
+export const PortfolioSchema=z.object({id:z.string().min(1),name:z.string().min(1),baseCurrency:CurrencySchema,monthlyDca:z.number().nonnegative().default(250),strategicReserve:z.number().nonnegative().default(5000)}); export type Portfolio=z.infer<typeof PortfolioSchema>
+export interface MarketQuote{assetId:string;price:number|null;currency:Currency;asOf:Date|null;status:'LIVE'|'DELAYED'|'STALE'|'UNAVAILABLE'|'DEMO'}
+export interface Position{assetId:string;quantity:number;averageCost:number;costBasis:number;realizedPnl:number;income:number;fees:number}
+export interface ValuedPosition extends Position{marketPrice:number|null;marketValue:number|null;unrealizedPnl:number|null;weight:number|null;valueInBaseCurrency:number|null}
+export type DecisionAction='BUY'|'BUY_PARTIAL'|'HOLD'|'REDUCE'|'SELL'|'WAIT'
+export interface DecisionRecord{id:string;createdAt:Date;assetId?:string;action:DecisionAction;rationale:string[];confidence:'LOW'|'MEDIUM'|'HIGH';inputs:Record<string,unknown>;status:'CANDIDATE'|'ACCEPTED'|'REJECTED'|'EXECUTED'}

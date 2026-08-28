@@ -1,0 +1,3 @@
+export interface ReserveCandidate{threshold:number;amount:number;remainingReserve:number;label:string}
+const triggers=[{threshold:-.15,amount:1000},{threshold:-.125,amount:1500},{threshold:-.10,amount:1250},{threshold:-.08,amount:750}]
+export function selectReserveCandidate(drawdown:number,availableReserve:number,finalReserve=500):ReserveCandidate|null{const trigger=triggers.find(c=>drawdown<=c.threshold);if(!trigger)return null;const deployable=Math.max(0,availableReserve-finalReserve);if(!deployable)return null;const amount=Math.min(trigger.amount,deployable);return{threshold:trigger.threshold,amount,remainingReserve:availableReserve-amount,label:`Candidate only: deploy up to €${amount.toLocaleString('en-US')}`}}

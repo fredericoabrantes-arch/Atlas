@@ -1,0 +1,1 @@
+import { describe,expect,it } from 'vitest';import { convertCurrency } from './fx';describe('FX',()=>{it('uses direct and inverse rates',()=>{expect(convertCurrency(100,'USD','EUR',{'USD/EUR':.85})).toBe(85);expect(convertCurrency(85,'EUR','USD',{'USD/EUR':.85})).toBe(100)});it('returns null without a rate',()=>expect(convertCurrency(100,'USD','GBP',{})).toBeNull())})
