@@ -29,6 +29,13 @@ Required CSV columns are `date`, `type`, and `currency`. Trades also require `ti
 
 Alpha Vantage credentials are optional and stored only in browser storage. Without a key, Atlas keeps using demo or unavailable states rather than inventing market values.
 
+## v0.7 performance and scenarios
+
+- Deterministic time-weighted return (TWR) and money-weighted return (XIRR/MWR).
+- Benchmark and active-return comparison with explicit unavailable states.
+- Interactive multi-year scenario analysis with contributions, return and volatility assumptions.
+- Scenario ranges are labelled as projections, never predictions or trade recommendations.
+
 ## v0.1 foundation
 
 - Responsive dark-fintech dashboard and explicit demo-data status.
@@ -50,6 +57,6 @@ Requires Node.js 20+. Run `npm install`, then `npm run dev`. Quality checks are 
 
 ## Roadmap
 
-Next: server-side encrypted sync, authentication, benchmark/TWR/MWR returns, scenario analysis and explainable AI interpretation.
+Next: server-side encrypted sync, authentication and explainable AI interpretation.
 
 No broker execution or automatic trading is included.
