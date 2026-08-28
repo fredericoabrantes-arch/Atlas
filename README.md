@@ -17,6 +17,18 @@ All financial calculations are deterministic TypeScript functions. Decisions are
 
 Required CSV columns are `date`, `type`, and `currency`. Trades also require `ticker`, `quantity`, and `unitPrice`. Optional columns are `name`, `assetClass`, `amount`, `fees`, `note`, `region`, and `sector`.
 
+## v0.3–v0.6 platform
+
+- Configurable Alpha Vantage quotes and ECB reference FX rates with cache, source and freshness states.
+- Trading 212 CSV mapping for trades, dividends, deposits, withdrawals and fees.
+- Transaction creation, filtering and deletion, per-currency cash balances and multiple portfolios.
+- Portable validated JSON backup and restore.
+- Decision Journal with action, thesis, confidence, outcome review and accuracy tracking.
+- Migration from the v0.2 local workspace to the platform store.
+- GitHub Actions checks for tests, lint and production builds.
+
+Alpha Vantage credentials are optional and stored only in browser storage. Without a key, Atlas keeps using demo or unavailable states rather than inventing market values.
+
 ## v0.1 foundation
 
 - Responsive dark-fintech dashboard and explicit demo-data status.
@@ -38,6 +50,6 @@ Requires Node.js 20+. Run `npm install`, then `npm run dev`. Quality checks are 
 
 ## Roadmap
 
-Production market/FX providers; Decision Journal workflows; benchmark and TWR/MWR returns; scenario analysis and explainable AI interpretation.
+Next: server-side encrypted sync, authentication, benchmark/TWR/MWR returns, scenario analysis and explainable AI interpretation.
 
 No broker execution or automatic trading is included.
