@@ -14,7 +14,7 @@ const requiredHeaders = ['date', 'type', 'currency']
 const tradeTypes = new Set<TransactionType>(['BUY', 'SELL'])
 const assetTypes = new Set<TransactionType>(['BUY', 'SELL', 'DIVIDEND', 'FEE'])
 
-function parseCsvRows(source: string): string[][] {
+export function parseCsvRows(source: string): string[][] {
   const rows: string[][] = []
   let row: string[] = [], cell = '', quoted = false
   for (let index = 0; index < source.length; index += 1) {
