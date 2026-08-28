@@ -6,6 +6,17 @@ Atlas is a personal investment management and decision-support application.
 
 All financial calculations are deterministic TypeScript functions. Decisions are reviewable candidates; Atlas does not execute trades.
 
+## v0.2 local workspace
+
+- Versioned browser persistence with Zod validation on save and load.
+- CSV import with quoted-field support, row-level validation and preview counters.
+- Stable transaction fingerprints prevent duplicate reimports.
+- Imported assets are merged by normalized ticker identity.
+- Files are processed locally in the browser and are never uploaded.
+- Corrupt saved data fails safely to the demo workspace with a visible warning.
+
+Required CSV columns are `date`, `type`, and `currency`. Trades also require `ticker`, `quantity`, and `unitPrice`. Optional columns are `name`, `assetClass`, `amount`, `fees`, `note`, `region`, and `sector`.
+
 ## v0.1 foundation
 
 - Responsive dark-fintech dashboard and explicit demo-data status.
@@ -19,7 +30,7 @@ All financial calculations are deterministic TypeScript functions. Decisions are
 
 ## Architecture
 
-`src/domain` is framework-independent. `src/data` contains provider contracts and demo fixtures. React consumes calculated results without duplicating financial logic.
+`src/domain` is framework-independent. `src/data` contains versioned persistence, CSV ingestion, provider contracts and demo fixtures. React consumes calculated results without duplicating financial logic.
 
 ## Setup
 
@@ -27,6 +38,6 @@ Requires Node.js 20+. Run `npm install`, then `npm run dev`. Quality checks are 
 
 ## Roadmap
 
-Persistence and imports; production market/FX providers; Decision Journal workflows; benchmark and TWR/MWR returns; scenario analysis and explainable AI interpretation.
+Production market/FX providers; Decision Journal workflows; benchmark and TWR/MWR returns; scenario analysis and explainable AI interpretation.
 
 No broker execution or automatic trading is included.
