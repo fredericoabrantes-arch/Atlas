@@ -1,0 +1,1 @@
+import{describe,expect,it}from'vitest';import{createBackup,restoreBackup}from'./backup';describe('backup',()=>{it('round trips data',()=>expect(restoreBackup(createBackup({value:42}))).toEqual({value:42}));it('rejects arbitrary files',()=>expect(()=>restoreBackup('{}')).toThrow('supported'))})
